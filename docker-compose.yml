@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  setup:
+    image: node:latest
+    volumes:
+      - .:/srv:cached
+      - ~/.ssh/:/root/.ssh:ro
+      - ~/.gitconfig:/root/.gitconfig
+    working_dir: /srv
+    command: yarn install
+  app:
+    image: node:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/srv:cached
+    working_dir: /srv
+    command: yarn serve
